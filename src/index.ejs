@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>LBH Finance - Hackney Council</title>
+    <meta name="importmap-type" content="systemjs-importmap" />
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="stylesheet" href="/<%= htmlWebpackPlugin.files.css[0] %>" />
+    <script type="systemjs-importmap">
+      {
+          "imports": {
+              "@mtfh/root-config": "/<%= htmlWebpackPlugin.files.js[0] %>",
+              "formik": "/<%= htmlWebpackPlugin.files.js[1] %>",
+              "yup": "/<%= htmlWebpackPlugin.files.js[2] %>",
+              "date-fns": "/<%= htmlWebpackPlugin.files.js[3] %>",
+              <% if (!isLocal) { %>
+              "single-spa": "https://cdnjs.cloudflare.com/ajax/libs/single-spa/5.9.0/umd/single-spa.min.js",
+              "react": "https://cdnjs.cloudflare.com/ajax/libs/react/17.0.1/umd/react.production.min.js",
+              "react-dom": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.1/umd/react-dom.production.min.js",
+              "react-router-dom": "https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.min.js"
+              <% } else { %>
+              "single-spa": "https://cdnjs.cloudflare.com/ajax/libs/single-spa/5.9.0/umd/single-spa.dev.js",
+              "react": "https://cdnjs.cloudflare.com/ajax/libs/react/17.0.1/umd/react.development.js",
+              "react-dom": "https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.1/umd/react-dom.development.min.js",
+              "react-router-dom": "https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.js"
+              <% } %>
+          }
+      }
+    </script>
+    <script
+      type="systemjs-importmap"
+      src="<%= COMMON_APP_URL %>/import-map.json"
+      crossorigin="use-credentials"
+    ></script>
+    <script
+      type="systemjs-importmap"
+      src="<%= AUTH_APP_URL %>/import-map.json"
+      crossorigin="use-credentials"
+    ></script>
+    <script
+      type="systemjs-importmap"
+      src="<%= HEADER_APP_URL %>/import-map.json"
+      crossorigin="use-credentials"
+    ></script>
+    <script
+      type="systemjs-importmap"
+      src="<%= SEARCH_APP_URL %>/import-map.json"
+      crossorigin="use-credentials"
+    ></script>
+    <script
+    type="systemjs-importmap"
+    src="<%= FINANCE_DETAILS_APP_URL %>/import-map.json"
+    crossorigin="use-credentials"
+  ></script>
+
+    <% if (!isLocal && APP_ENV !== 'production') { %>
+    <script type="text/javascript">
+      if ("serviceWorker" in navigator) {
+        var ignoreAgents = ["Chrome-Lighthouse", "HeadlessChrome"];
+        var ignore =
+          !!window.Cypress ||
+          ignoreAgents.some(function (agent) {
+            return window.navigator.userAgent.indexOf(agent) !== -1;
+          });
+        if (!ignore) {
+          window.addEventListener("load", function () {
+            window.navigator.serviceWorker.register("/sw.js").catch(function (err) {
+              console.error("ServiceWorker registration failed:", err);
+            });
+          });
+        } else {
+          window.navigator.serviceWorker
+            .getRegistration()
+            .then(function (registration) {
+              if (registration) {
+                registration.unregister();
+              }
+            })
+            .catch(function (err) {
+              console.error("ServiceWorker unregistration failed:", err);
+            });
+        }
+      }
+    </script>
+    <% } %>
+
+    <style>
+      header {
+        margin-top: 0;
+      }
+      .lbh-skip-link {
+        color: #ffffff;
+      }
+    </style>
+    <template id="single-spa-layout-authorised">
+      <main class="mtfh-main-wrapper" id="main-content">
+        <div class="container-max-width">
+          <route path="search">
+            <application name="@mtfh/search" loader="spinner"></application>
+          </route>
+          <route path="login">
+            <application name="@mtfh/auth" loader="spinner"></application>
+          </route>
+          <route default>
+            <application name="@mtfh/finance-details" loader="spinner"></application>
+          </route>
+        </div>
+      </main>
+    </template>
+
+    <template id="single-spa-layout-public">
+      <main class="mtfh-main-wrapper" id="main-content">
+        <div class="container-max-width">
+          <route default>
+            <application name="@mtfh/auth" loader="spinner"></application>
+          </route>
+        </div>
+      </main>
+    </template>
+
+    <template id="single-spa-layout-header">
+      <a href="#content" class="govuk-skip-link lbh-skip-link"> Skip to main content </a>
+      <header>
+        <application
+          name="@mtfh/header"
+          loader="header"
+          props="serviceName, betaBannerCopy, reportIssueLink, suggestFeatureLink"
+        ></application>
+      </header>
+    </template>
+
+    <template id="single-spa-layout-footer">
+      <footer class="mtfh-footer">
+        <div class="mtfh-footer__section --primary">
+          <ul class="mtfh-footer__menu">
+            <li class="mtfh-footer__menu-item">
+              <a
+                class="lbh-link"
+                href="https://forms.gle/5kUGcRYFwwaZWrGs8"
+                target="_blank"
+                rel="noopener"
+                >Report an issue</a
+              >
+            </li>
+            <li class="mtfh-footer__menu-item">
+              <a
+                class="lbh-link"
+                href="https://forms.gle/yM7zCKYZcuVzSXkC6"
+                target="_blank"
+                rel="noopener"
+                >Make a suggestion</a
+              >
+            </li>
+            <li class="mtfh-footer__menu-item">
+              <a
+                class="lbh-link"
+                href="https://drive.google.com/file/d/19VOGIul60kxv79VuSu9CEZfnJR-HB0hY/view?usp=sharing"
+                target="_blank"
+                rel="noopener"
+                >Accessibility statement</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="mtfh-footer__section"></div>
+      </footer>
+    </template>
+  </head>
+
+  <body class="govuk-template__body js-enabled">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.11.0/system.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.11.0/extras/amd.min.js"></script>
+    <script>
+      System.import("@mtfh/root-config");
+    </script>
+  </body>
+</html>

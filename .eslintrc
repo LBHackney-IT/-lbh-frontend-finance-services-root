@@ -1,0 +1,19 @@
+{
+  "ignorePatterns": "webpack.config.js",
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "extends": "@hackney/eslint-config/base",
+      "rules": {
+        "import/no-duplicates": "off"
+      }
+    },
+    {
+      "files": ["*.ejs", ".html"],
+      "plugins": ["html"],
+      "settings": {
+        "html/html-extensions": [".html", ".ejs"]
+      }
+    }
+  ]
+}
