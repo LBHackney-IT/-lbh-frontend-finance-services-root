@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>LBH Finance - Hackney Council</title>
+    <title>LBH Finance Services - Hackney Council</title>
     <meta name="importmap-type" content="systemjs-importmap" />
 
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
@@ -52,11 +52,6 @@
       src="<%= SEARCH_APP_URL %>/import-map.json"
       crossorigin="use-credentials"
     ></script>
-    <script
-    type="systemjs-importmap"
-    src="<%= FINANCE_DETAILS_APP_URL %>/import-map.json"
-    crossorigin="use-credentials"
-  ></script>
 
     <% if (!isLocal && APP_ENV !== 'production') { %>
     <script type="text/javascript">
@@ -100,14 +95,11 @@
     <template id="single-spa-layout-authorised">
       <main class="mtfh-main-wrapper" id="main-content">
         <div class="container-max-width">
-          <route path="search">
+          <route default>
             <application name="@mtfh/search" loader="spinner"></application>
           </route>
           <route path="login">
             <application name="@mtfh/auth" loader="spinner"></application>
-          </route>
-          <route default>
-            <application name="@mtfh/finance-details" loader="spinner"></application>
           </route>
         </div>
       </main>

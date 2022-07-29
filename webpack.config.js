@@ -39,7 +39,6 @@ module.exports = (webpackConfigEnv, argv) => {
           AUTH_APP_URL: process.env.AUTH_APP_URL || "//localhost:8080",
           SEARCH_APP_URL: process.env.SEARCH_APP_URL || "//localhost:8070",
           COMMON_APP_URL: process.env.COMMON_APP_URL || "//localhost:8040",
-          FINANCE_DETAILS_APP_URL:  process.env.FINANCE_DETAILS_APP_URL || "//localhost:9010",
         },
       }),
     ],
