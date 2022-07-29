@@ -28,11 +28,10 @@ module "cloudfront-development" {
   s3_bucket_arn = aws_s3_bucket.frontend-bucket-development.arn
   s3_bucket_id = aws_s3_bucket.frontend-bucket-development.id
   orginin_access_identity_desc = "Finance services root frontend cloudfront identity"
-  cname_aliases = ["finance-services-development.hackney.gov.uk"]
+  cname_aliases = []
   environment_name = "development"
   cost_code = "B0811"
   project_name = "MTFH Finance"
-  use_cloudfront_cert = false
-  hackney_cert_arn = "arn:aws:acm:us-east-1:364864573329:certificate/d9af3725-41db-429b-8e13-a3174d6e5698"
+  use_cloudfront_cert = true
   compress = true
 }
