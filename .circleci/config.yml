@@ -128,18 +128,17 @@ jobs:
             - run:
                 name: build
                 command: |
-                    export ROOT_APP_URL=$(aws ssm get-parameter --name /housing-finance/<<parameters.stage>>/root-app-url --query Parameter.Value --output text)
+                    export ROOT_APP_URL=$(aws ssm get-parameter --name /housing-finance-services-fe/<<parameters.stage>>/root-app-url --query Parameter.Value --output text)
                     export HEADER_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/header-app-url --query Parameter.Value --output text)
                     export AUTH_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-app-url --query Parameter.Value --output text)
                     export SEARCH_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-app-url --query Parameter.Value --output text)
                     export COMMON_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/common-app-url --query Parameter.Value --output text)
-                    export FINANCE_DETAILS_APP_URL=$(aws ssm get-parameter --name /housing-finance-details/<<parameters.stage>>/app-url --query Parameter.Value --output text)
                     yarn build
             - run:
                 name: Deploy to S3
                 command: |
-                    aws s3 sync dist s3://lbh-housing-finance-root-frontend-development.hackney.gov.uk/ --exclude "index.html" --cache-control "public, immutable, max-age=31536000"
-                    aws s3 sync dist s3://lbh-housing-finance-root-frontend-development.hackney.gov.uk/ --include "index.html" --cache-control "public, must-revalidate, max-age=0"
+                    aws s3 sync dist s3://lbh-housing-finance-services-fe-root-development.hackney.gov.uk/ --exclude "index.html" --cache-control "public, immutable, max-age=31536000"
+                    aws s3 sync dist s3://lbh-housing-finance-services-fe-root-development.hackney.gov.uk/ --include "index.html" --cache-control "public, must-revalidate, max-age=0"
     build-deploy-staging:
         executor: node-executor
         environment:
@@ -158,13 +157,12 @@ jobs:
                     export AUTH_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-app-url --query Parameter.Value --output text)
                     export SEARCH_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-app-url --query Parameter.Value --output text)
                     export COMMON_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/common-app-url --query Parameter.Value --output text)
-                    export FINANCE_DETAILS_APP_URL=$(aws ssm get-parameter --name /housing-finance-details/<<parameters.stage>>/app-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
                   command: |
-                    aws s3 sync dist s3://lbh-housing-finance-root-frontend-staging.hackney.gov.uk/ --exclude "index.html" --cache-control "public, immutable, max-age=31536000"
-                    aws s3 sync dist s3://lbh-housing-finance-root-frontend-staging.hackney.gov.uk/ --include "index.html" --cache-control "public, must-revalidate, max-age=0"
+                    aws s3 sync dist s3://lbh-housing-finance-services-fe-root-staging.hackney.gov.uk/ --exclude "index.html" --cache-control "public, immutable, max-age=31536000"
+                    aws s3 sync dist s3://lbh-housing-finance-services-fe-root-staging.hackney.gov.uk/ --include "index.html" --cache-control "public, must-revalidate, max-age=0"
     build-deploy-production:
         executor: node-executor
         environment:
@@ -184,13 +182,12 @@ jobs:
                     export AUTH_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-app-url --query Parameter.Value --output text)
                     export SEARCH_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-app-url --query Parameter.Value --output text)
                     export COMMON_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/common-app-url --query Parameter.Value --output text)
-                    export FINANCE_DETAILS_APP_URL=$(aws ssm get-parameter --name /housing-finance-details/<<parameters.stage>>/app-url --query Parameter.Value --output text)
                     yarn build
             - run:
                   name: Deploy to S3
                   command: |
-                    aws s3 sync dist s3://lbh-housing-finance-root-frontend-production.hackney.gov.uk/ --exclude "index.html" --cache-control "public, immutable, max-age=31536000"
-                    aws s3 sync dist s3://lbh-housing-finance-root-frontend-production.hackney.gov.uk/ --include "index.html" --cache-control "public, must-revalidate, max-age=0"
+                    aws s3 sync dist s3://lbh-housing-finance-services-fe-root-production.hackney.gov.uk/ --exclude "index.html" --cache-control "public, immutable, max-age=31536000"
+                    aws s3 sync dist s3://lbh-housing-finance-services-fe-root-production.hackney.gov.uk/ --include "index.html" --cache-control "public, must-revalidate, max-age=0"
 
     assume-role-development:
         executor: docker-python
