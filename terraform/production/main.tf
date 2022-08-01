@@ -7,11 +7,11 @@ terraform {
     bucket  = "terraform-state-housing-production"
     encrypt = true
     region  = "eu-west-2"
-    key     = "services/finance-root-frontend/state"
+    key     = "services/finance-services-fe-root/state"
   }
 }
 resource "aws_s3_bucket" "frontend-bucket-production" {
-  bucket = "lbh-housing-finance-root-frontend-production.hackney.gov.uk"
+  bucket = "lbh-housing-finance-services-fe-root-production.hackney.gov.uk"
   acl    = "private"
   versioning {
     enabled = true
@@ -27,8 +27,8 @@ module "cloudfront-production" {
   origin_id = "mtfh-finance-root-frontend"
   s3_bucket_arn = aws_s3_bucket.frontend-bucket-production.arn
   s3_bucket_id = aws_s3_bucket.frontend-bucket-production.id
-  orginin_access_identity_desc = "Finance root frontend cloudfront identity"
-  cname_aliases = ["hfs.hackney.gov.uk"]
+  orginin_access_identity_desc = "Finance services root frontend cloudfront identity"
+  cname_aliases = ["finance-services.hackney.gov.uk"]
   environment_name = "production"
   cost_code = "B0811"
   project_name = "MTFH Finance"

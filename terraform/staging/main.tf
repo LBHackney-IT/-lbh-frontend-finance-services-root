@@ -7,11 +7,11 @@ terraform {
     bucket  = "terraform-state-housing-staging"
     encrypt = true
     region  = "eu-west-2"
-    key     = "services/finance-root-frontend/state"
+    key     = "services/finance-services-fe-root/state"
   }
 }
 resource "aws_s3_bucket" "frontend-bucket-staging" {
-  bucket = "lbh-housing-finance-root-frontend-staging.hackney.gov.uk"
+  bucket = "lbh-housing-finance-services-fe-root-staging.hackney.gov.uk"
   acl    = "private"
   versioning {
     enabled = true
@@ -27,12 +27,12 @@ module "cloudfront-staging" {
   origin_id = "mtfh-finance-root-frontend"
   s3_bucket_arn = aws_s3_bucket.frontend-bucket-staging.arn
   s3_bucket_id = aws_s3_bucket.frontend-bucket-staging.id
-  orginin_access_identity_desc = "Finance root frontend cloudfront identity"
-  cname_aliases = ["hfs-staging.hackney.gov.uk"]
+  orginin_access_identity_desc = "Finance services root frontend cloudfront identity"
+  cname_aliases = ["finance-services-staging.hackney.gov.uk"]
   environment_name = "staging"
   cost_code = "B0811"
   project_name = "MTFH Finance"
   use_cloudfront_cert = false
-  hackney_cert_arn = "arn:aws:acm:us-east-1:087586271961:certificate/2be4b54d-5c8e-45a0-aee6-df8380eb6d77"
+  hackney_cert_arn = "arn:aws:acm:us-east-1:087586271961:certificate/e0031c39-d488-44bf-b4fc-ab8eee15db3a"
   compress = true
 }
