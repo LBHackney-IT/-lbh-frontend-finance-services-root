@@ -39,7 +39,8 @@ module.exports = (webpackConfigEnv, argv) => {
           AUTH_APP_URL: process.env.AUTH_APP_URL || "//localhost:8080",
           SEARCH_APP_URL: process.env.SEARCH_APP_URL || "//localhost:8070",
           COMMON_APP_URL: process.env.COMMON_APP_URL || "//localhost:8040",
-          DIRECT_DEBIT_APP_URL: process.env.DIRECT_DEBIT_APP_URL || "//localhost:9010",
+          DIRECT_DEBIT_APP_URL:
+            process.env.DIRECT_DEBIT_APP_URL || "https://d23z24vwag6pl8.cloudfront.net",
         },
       }),
     ],
