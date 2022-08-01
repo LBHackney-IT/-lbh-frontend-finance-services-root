@@ -133,6 +133,8 @@ jobs:
                     export AUTH_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-app-url --query Parameter.Value --output text)
                     export SEARCH_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-app-url --query Parameter.Value --output text)
                     export COMMON_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/common-app-url --query Parameter.Value --output text)
+                    export DIRECT_DEBIT_APP_URL=$(aws ssm get-parameter --name /housing-finance-services-fe/<<parameters.stage>>/direct-debit-app-url --query Parameter.Value --output text)
+                    
                     yarn build
             - run:
                 name: Deploy to S3
