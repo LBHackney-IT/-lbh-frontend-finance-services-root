@@ -100,14 +100,14 @@
     <template id="single-spa-layout-authorised">
       <main class="mtfh-main-wrapper" id="main-content">
         <div class="container-max-width">
-          <route path="search">
+          <route default>
             <application name="@mtfh/search" loader="spinner"></application>
           </route>
           <route path="login">
             <application name="@mtfh/auth" loader="spinner"></application>
           </route>
-          <route default>
-            <application name="@mtfh/finance-details" loader="spinner"></application>
+          <route path="direct-debits">
+            <application name="@mtfh/finance-direct-debits" loader="spinner"></application>
           </route>
         </div>
       </main>
