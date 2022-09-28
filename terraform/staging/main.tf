@@ -28,6 +28,7 @@ module "cloudfront-staging" {
   s3_bucket_arn = aws_s3_bucket.frontend-bucket-staging.arn
   s3_bucket_id = aws_s3_bucket.frontend-bucket-staging.id
   orginin_access_identity_desc = "Finance services root frontend cloudfront identity"
+  cname_aliases = []
   environment_name = "staging"
   cost_code = "B0811"
   project_name = "MTFH Finance"
